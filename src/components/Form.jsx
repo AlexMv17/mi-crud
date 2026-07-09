@@ -4,9 +4,10 @@ function Form({ addOrUpdateItem, itemToEdit }) {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    if (itemToEdit) {
+
+    if(itemToEdit){
       setInputValue(itemToEdit.value);
-    } else {
+    }else{
       setInputValue("");
     }
   }, [itemToEdit]);
@@ -14,21 +15,25 @@ function Form({ addOrUpdateItem, itemToEdit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (inputValue.trim()) {
+    if(inputValue.trim()){
+
       addOrUpdateItem(inputValue);
       setInputValue("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-form" onSubmit={handleSubmit}>
+
       <input
+        className="task-input"
         type="text"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e)=>setInputValue(e.target.value)}
+        placeholder="Escribe una tarea"
       />
 
-      <button type="submit">
+      <button className="add-button" type="submit">
         {itemToEdit ? "Actualizar" : "Agregar"}
       </button>
     </form>

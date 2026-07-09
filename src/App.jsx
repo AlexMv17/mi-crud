@@ -16,20 +16,26 @@ function App() {
   }, [items]);
 
   const addOrUpdateItem = (value) => {
-    if (itemToEdit) {
-      setItems(
-        items.map((item) =>
-          item.id === itemToEdit.id ? { ...item, value } : item
-        )
-      );
+    if(itemToEdit){
+      setItems(items.map((item)=>
+        item.id === itemToEdit.id
+        ? {...item, value}
+        : item
+      ));
       setItemToEdit(null);
-    } else {
-      setItems([...items, { id: Date.now(), value }]);
+    }else{
+      setItems([
+        ...items,
+        {
+          id: Date.now(),
+          value
+        }
+      ]);
     }
   };
 
   const deleteItem = (id) => {
-    setItems(items.filter((item) => item.id !== id));
+    setItems(items.filter((item)=>item.id !== id));
   };
 
   const editItem = (item) => {
@@ -37,12 +43,22 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>CRUD con LocalStorage</h1>
+    <div className="app-container">
+      <h1 className="app-title">
+        CRUD con LocalStorage
+      </h1>
 
-      <Form addOrUpdateItem={addOrUpdateItem} itemToEdit={itemToEdit} />
+      <Form
+        addOrUpdateItem={addOrUpdateItem}
+        itemToEdit={itemToEdit}
+      />
 
-      <List items={items} deleteItem={deleteItem} editItem={editItem} />
+      <List
+        items={items}
+        deleteItem={deleteItem}
+        editItem={editItem}
+      />
+
     </div>
   );
 }
