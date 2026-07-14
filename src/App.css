@@ -120,6 +120,21 @@ body {
   transform: scale(1.05);
 }
 
+.aviso {
+  color: #ff4d6d;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.contador {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4b3f72;
+  margin-bottom: 20px;
+}
+
 @media(max-width:500px){
 
   .app-container{

@@ -10,6 +10,7 @@ function App() {
   });
 
   const [itemToEdit, setItemToEdit] = useState(null);
+  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
@@ -35,7 +36,11 @@ function App() {
   };
 
   const deleteItem = (id) => {
-    setItems(items.filter((item)=>item.id !== id));
+    const confirmar = window.confirm("¿Estás seguro de eliminar este elemento?");
+
+    if (confirmar) {
+      setItems(items.filter((item) => item.id !== id));
+    }
   };
 
   const editItem = (item) => {
@@ -52,6 +57,10 @@ function App() {
         addOrUpdateItem={addOrUpdateItem}
         itemToEdit={itemToEdit}
       />
+
+      <p className="contador">
+        Total: {items.length}        
+      </p>
 
       <List
         items={items}
