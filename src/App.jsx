@@ -11,6 +11,7 @@ function App() {
 
   const [itemToEdit, setItemToEdit] = useState(null);
   const [mensaje, setMensaje] = useState("");
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
@@ -29,7 +30,8 @@ function App() {
         ...items,
         {
           id: Date.now(),
-          value
+          value,
+          completed: false
         }
       ]);
     }
@@ -47,6 +49,30 @@ function App() {
     setItemToEdit(item);
   };
 
+  const toggleCompleted = (id) => {
+    setItems(
+      items.map((item) =>
+        item.id === id
+          ? { ...item, completed: !item.completed }
+          : item
+      )
+    );
+  };
+
+  const deleteAllItems = () => {
+    const confirmar = window.confirm(
+      "¿Estás seguro de borrar todos los elementos?"
+    );
+
+    if (confirmar) {
+      setItems([]);
+    }
+  };
+
+  const itemsFiltrados = items.filter((item) =>
+    item.value.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   return (
     <div className="app-container">
       <h1 className="app-title">
@@ -62,10 +88,26 @@ function App() {
         Total: {items.length}        
       </p>
 
+      <input
+        className="task-input"
+        type="text"
+        placeholder="Buscar tarea..."
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+      />
+
+      <button
+        className="delete-all-button"
+        onClick={deleteAllItems}
+      >
+        Borrar todo
+      </button>
+
       <List
-        items={items}
+        items={itemsFiltrados}
         deleteItem={deleteItem}
         editItem={editItem}
+        toggleCompleted={toggleCompleted}
       />
 
     </div>
